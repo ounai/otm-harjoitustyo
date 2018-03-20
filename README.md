@@ -1,4 +1,9 @@
 # otm-harjoitustyo
 
-Nyt tässä sitten on **lihavoituja** sekä *kursivoituja* osuuksia, kuin myös tätä ihan tavallistakin tekstiä.
 
+## Tehtävät
+### Viikko 1
+Tässä on tätä **lihavoitua** sekä *kursivoitua* tekstiä, kuin myös tätä ihan tavallistakin.
+Tiedostot:
+* [komentorivi.txt](https://github.com/ounai/otm-harjoitustyo/blob/master/laskarit/viikko1/komentorivi.txt)
+* [gitlog.txt](https://github.com/ounai/otm-harjoitustyo/blob/master/laskarit/viikko1/gitlog.txt)
