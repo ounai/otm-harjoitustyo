@@ -1,6 +1,6 @@
 # otm-harjoitustyo
 
-Täällä opitaan asioita.
+Täällä opitaan asioita, paljon asioita.
 
 ## Tehtävät
 ### Viikko 1
