@@ -1,3 +1,5 @@
+tämä on gitlog.txt
+
 commit 49bcb43126e40f3cebb3f59fc59d3f05f4ef01e5
 Author: Onni Rantanen <github@ounai.fi>
 Date:   Tue Mar 20 11:24:52 2018 +0200
