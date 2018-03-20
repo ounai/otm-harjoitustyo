@@ -1,5 +1,6 @@
 # otm-harjoitustyo
 
+Täällä opitaan asioita.
 
 ## Tehtävät
 ### Viikko 1
