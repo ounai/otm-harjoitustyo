@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actions>
+        <action>
+            <actionName>CUSTOM-testaus</actionName>
+            <displayName>testaus</displayName>
+            <goals>
+                <goal>test</goal>
+            </goals>
+        </action>
+        <action>
+            <actionName>CUSTOM-koodikattavuus</actionName>
+            <displayName>koodikattavuus</displayName>
+            <goals>
+                <goal>jacoco:report</goal>
+            </goals>
+        </action>
+        <action>
+            <actionName>CUSTOM-siivous</actionName>
+            <displayName>siivous</displayName>
+            <goals>
+                <goal>clean</goal>
+            </goals>
+        </action>
+        <action>
+            <actionName>CUSTOM-kääntäminen</actionName>
+            <displayName>kääntäminen</displayName>
+            <goals>
+                <goal>compile</goal>
+            </goals>
+        </action>
+    </actions>
