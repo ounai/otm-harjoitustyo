@@ -10,5 +10,5 @@ Tässä on tätä **lihavoitua** sekä *kursivoitua* tekstiä, kuin myös tätä
 
 ## Harjoitustyö: NysseTulee
 
-* [Määrittelydokumentti](https://github.com/ounai/otm-harjoituspyo/blob/master/NysseTulee/dokumentaatio/VaatimusMaarittely.md)
+* [Määrittelydokumentti](https://github.com/ounai/otm-harjoitustyo/blob/master/NysseTulee/dokumentaatio/VaatimusMaarittely.md)
 
