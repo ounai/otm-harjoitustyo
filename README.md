@@ -7,3 +7,8 @@ Täällä opitaan asioita, paljon asioita.
 Tässä on tätä **lihavoitua** sekä *kursivoitua* tekstiä, kuin myös tätä ihan tavallistakin.
 * [komentorivi.txt](https://github.com/ounai/otm-harjoitustyo/blob/master/laskarit/viikko1/komentorivi.txt)
 * [gitlog.txt](https://github.com/ounai/otm-harjoitustyo/blob/master/laskarit/viikko1/gitlog.txt)
+
+## Harjoitustyö: NysseTulee
+
+* [Määrittelydokumentti](https://github.com/ounai/otm-harjoituspyo/blob/master/NysseTulee/dokumentaatio/VaatimusMaarittely.md)
+
