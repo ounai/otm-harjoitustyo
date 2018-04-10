@@ -8,7 +8,7 @@ import fi.ounai.nyssetulee.ui.TextUI;
 import java.util.Scanner;
 
 public class NysseTulee {
-    private static final String API_URL = "";
+    private static final String API_URL = "https://api.digitransit.fi/routing/v1/routers/hsl/index/graphql";
     
     public static void main(String[] args) {
         // Initialize the APIs
