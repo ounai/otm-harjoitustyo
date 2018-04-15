@@ -1,4 +1,4 @@
-package fi.ounai.NysseTulee.api;
+package fi.ounai.nyssetulee.api;
 
 import fi.ounai.nyssetulee.api.StopAPI;
 import fi.ounai.nyssetulee.domain.Stop;

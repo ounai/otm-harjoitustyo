@@ -1,4 +1,4 @@
-package fi.ounai.NysseTulee.api;
+package fi.ounai.nyssetulee.api;
 
 import fi.ounai.nyssetulee.api.RouteAPI;
 import fi.ounai.nyssetulee.domain.Route;

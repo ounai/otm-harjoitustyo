@@ -1,7 +1,7 @@
-package fi.ounai.NysseTulee.domain;
+package fi.ounai.nyssetulee.domain;
 
-import fi.ounai.NysseTulee.api.TestRouteAPI;
-import fi.ounai.NysseTulee.api.TestStopAPI;
+import fi.ounai.nyssetulee.api.TestRouteAPI;
+import fi.ounai.nyssetulee.api.TestStopAPI;
 import fi.ounai.nyssetulee.ui.TextUI;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -38,4 +38,5 @@ public class TextUITest {
         String output = testWithInput("exit");
         assertThat(output, CoreMatchers.containsString("NysseTulee"));
     }
+    
 }
