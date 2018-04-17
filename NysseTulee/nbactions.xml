@@ -29,4 +29,11 @@
                 <goal>checkstyle:checkstyle</goal>
             </goals>
         </action>
+        <action>
+            <actionName>CUSTOM-jar generointi</actionName>
+            <displayName>jar generointi</displayName>
+            <goals>
+                <goal>package</goal>
+            </goals>
+        </action>
     </actions>

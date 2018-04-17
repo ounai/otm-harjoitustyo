@@ -14,11 +14,11 @@ import java.util.logging.Logger;
 
 public class TextUI {
     
-    private Scanner scanner;
-    private PrintStream out;
-    private RouteAPI routeAPI;
-    private StopAPI stopAPI;
-    private AlertAPI alertAPI;
+    private final Scanner scanner;
+    private final PrintStream out;
+    private final RouteAPI routeAPI;
+    private final StopAPI stopAPI;
+    private final AlertAPI alertAPI;
     
     public TextUI(Scanner scanner, PrintStream out, RouteAPI routeAPI, StopAPI stopAPI, AlertAPI alertAPI) {
         this.scanner = scanner;

@@ -10,14 +10,15 @@ import fi.ounai.nyssetulee.ui.TextUI;
 import java.util.Scanner;
 
 public class NysseTulee {
-    private static final String API_URL = "https://api.digitransit.fi/routing/v1/routers/hsl/index/graphql";
+    
+    private static final String apiUrl = "https://api.digitransit.fi/routing/v1/routers/hsl/index/graphql";
     
     public static void main(String[] args) {
         // Initialize the APIs
         
-        RouteAPI routeAPI = new DigitransitRouteAPI(API_URL);
-        StopAPI stopAPI = new DigitransitStopAPI(API_URL);
-        AlertAPI alertAPI = new DigitransitAlertAPI(API_URL);
+        RouteAPI routeAPI = new DigitransitRouteAPI(apiUrl);
+        StopAPI stopAPI = new DigitransitStopAPI(apiUrl);
+        AlertAPI alertAPI = new DigitransitAlertAPI(apiUrl);
         
         // Create and launch a textual UI
         
@@ -26,4 +27,5 @@ public class NysseTulee {
         TextUI ui = new TextUI(scanner, System.out, routeAPI, stopAPI, alertAPI);
         ui.launch();
     }
+    
 }
