@@ -5,6 +5,7 @@ import fi.ounai.nyssetulee.api.RouteAPI;
 import fi.ounai.nyssetulee.api.StopAPI;
 import fi.ounai.nyssetulee.domain.Alert;
 import fi.ounai.nyssetulee.domain.Route;
+import fi.ounai.nyssetulee.domain.Stop;
 import java.io.PrintStream;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -73,8 +74,10 @@ public class TextUI {
                     }
                     
                     if (alert.getAlertDescriptionText() != null) {
-                        System.out.println(alert.getAlertDescriptionText());
+                        System.out.print(alert.getAlertDescriptionText());
                     }
+                    
+                    System.out.println();
                 }
             }
         } catch (Exception ex) {
@@ -83,7 +86,27 @@ public class TextUI {
     }
     
     private void stopSearch(String searchTerm) {
-        
+        try {
+            Stop[] stops = stopAPI.getStops(searchTerm);
+            
+            if (stops.length == 0) {
+                System.out.println("No stops found.");
+            } else {
+                System.out.println("Found " + stops.length + " stop" + (stops.length == 1 ? "" : "s"));
+                
+                for (Stop stop : stops) {
+                    System.out.print(stop.getCode() + " " + stop.getName());
+                    
+                    if(stop.getDesc() != null && !stop.getDesc().equals(stop.getName())) {
+                        System.out.print(" (" + stop.getDesc() + ")");
+                    }
+                    
+                    System.out.println();
+                }
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TextUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     private void routeSearch(String searchTerm) {
@@ -109,7 +132,7 @@ public class TextUI {
         out.println();
         out.println("Available commmands:");
         out.println("\troutesearch <search term> - search for routes");
-        //out.println("\tstopsearch <search term> - search for stops");
+        out.println("\tstopsearch <search term> - search for stops");
         out.println("\talerts - display transit alerts");
         out.println("\thelp - display this help");
         out.println("\texit - exit from the application");

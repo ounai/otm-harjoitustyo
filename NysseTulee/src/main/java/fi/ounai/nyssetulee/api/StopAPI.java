@@ -4,6 +4,6 @@ import fi.ounai.nyssetulee.domain.Stop;
 
 public interface StopAPI {
     
-    Stop[] getStops(String name);
+    Stop[] getStops(String name) throws Exception;
     
 }
