@@ -4,6 +4,7 @@
 
 * [Määrittelydokumentti](https://github.com/ounai/otm-harjoitustyo/blob/master/NysseTulee/dokumentaatio/VaatimusMaarittely.md)
 * [Tuntikirjanpito](https://github.com/ounai/otm-harjoitustyo/blob/master/NysseTulee/dokumentaatio/TuntiKirjanpito.md)
+* [Arkkitehtuuri](https://github.com/ounai/otm-harjoitustyo/blob/master/NysseTulee/dokumentaatio/Arkkitehtuuri.md)
 
 ## Käyttö komentoriviltä
 
