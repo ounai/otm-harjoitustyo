@@ -69,15 +69,7 @@ public class TextUI {
                 System.out.println(alerts.length + " alert" + (alerts.length == 1 ? "" : "s"));
                 
                 for (Alert alert : alerts) {
-                    if (alert.getAlertHeaderText() != null) {
-                        System.out.print(alert.getAlertHeaderText() + ": ");
-                    }
-                    
-                    if (alert.getAlertDescriptionText() != null) {
-                        System.out.print(alert.getAlertDescriptionText());
-                    }
-                    
-                    System.out.println();
+                    System.out.println(alert.toString());
                 }
             }
         } catch (Exception ex) {
@@ -97,7 +89,7 @@ public class TextUI {
                 for (Stop stop : stops) {
                     System.out.print(stop.getCode() + " " + stop.getName());
                     
-                    if(stop.getDesc() != null && !stop.getDesc().equals(stop.getName())) {
+                    if (stop.getDesc() != null && !stop.getDesc().equals(stop.getName())) {
                         System.out.print(" (" + stop.getDesc() + ")");
                     }
                     

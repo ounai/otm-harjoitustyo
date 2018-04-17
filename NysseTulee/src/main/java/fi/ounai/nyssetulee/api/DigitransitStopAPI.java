@@ -25,12 +25,12 @@ public class DigitransitStopAPI implements StopAPI {
         
         String json = new GraphQLAPIQuery(apiUrl, query).execute();
         
-        Stop[] serialized = new GsonBuilder()
+        Stop[] deserialized = new GsonBuilder()
                 .registerTypeAdapter(Stop[].class, new TransitDataJsonDeserializer())
                 .create()
                 .fromJson(json, Stop[].class);
         
-        return serialized;
+        return deserialized;
     }
     
 }

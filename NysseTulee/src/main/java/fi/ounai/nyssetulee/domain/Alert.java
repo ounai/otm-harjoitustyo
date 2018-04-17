@@ -20,5 +20,24 @@ public class Alert {
     public String getAlertDescriptionText() {
         return alertDescriptionText;
     }
+
+    @Override
+    public String toString() {
+        String result = "";
+        
+        if (getAlertHeaderText() != null) {
+            result += getAlertHeaderText();
+            
+            if (getAlertDescriptionText() != null) {
+                result += ": ";
+            }
+        }
+                    
+        if (getAlertDescriptionText() != null) {
+            result += getAlertDescriptionText();
+        }
+
+        return result;
+    }
     
 }

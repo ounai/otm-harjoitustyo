@@ -23,12 +23,12 @@ public class DigitransitRouteAPI implements RouteAPI {
         
         String json = new GraphQLAPIQuery(apiUrl, query).execute();
         
-        Route[] serialized = new GsonBuilder()
+        Route[] deserialized = new GsonBuilder()
                 .registerTypeAdapter(Route[].class, new TransitDataJsonDeserializer())
                 .create()
                 .fromJson(json, Route[].class);
         
-        return serialized;
+        return deserialized;
     }
 
     @Override

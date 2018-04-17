@@ -23,12 +23,12 @@ public class DigitransitAlertAPI implements AlertAPI {
         
         String json = new GraphQLAPIQuery(apiUrl, query).execute();
         
-        Alert[] serialized = new GsonBuilder()
+        Alert[] deserialized = new GsonBuilder()
                 .registerTypeAdapter(Alert[].class, new TransitDataJsonDeserializer())
                 .create()
                 .fromJson(json, Alert[].class);
         
-        return serialized;
+        return deserialized;
     }
     
 }

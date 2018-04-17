@@ -8,7 +8,8 @@ public class Stop {
     
     private String code, name, desc, url;
 
-    public Stop(String name, String desc, String url) {
+    public Stop(String code, String name, String desc, String url) {
+        this.code = code;
         this.name = name;
         this.desc = desc;
         this.url = url;
