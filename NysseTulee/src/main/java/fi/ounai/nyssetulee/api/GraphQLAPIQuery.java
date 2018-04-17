@@ -1,6 +1,7 @@
 package fi.ounai.nyssetulee.api;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonElement;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -17,19 +18,6 @@ public class GraphQLAPIQuery {
     public GraphQLAPIQuery(String apiUrl, String queryString) {
         this.apiUrl = apiUrl;
         this.queryString = queryString;
-    }
-    
-    public HttpURLConnection createConnection() throws Exception {
-        URL url = new URL(apiUrl);
-        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-        connection.setRequestMethod("POST");
-        connection.addRequestProperty("Content-Type", "application/graphql");
-        connection.setFixedLengthStreamingMode(queryString.length());
-        connection.setDoInput(true);
-        connection.setDoOutput(true);
-        connection.connect();
-        
-        return connection;
     }
     
     public String execute() throws Exception {
@@ -52,6 +40,19 @@ public class GraphQLAPIQuery {
                 return response.toString();
             }
         }
+    }
+    
+    private HttpURLConnection createConnection() throws Exception {
+        URL url = new URL(apiUrl);
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        connection.setRequestMethod("POST");
+        connection.addRequestProperty("Content-Type", "application/graphql");
+        connection.setFixedLengthStreamingMode(queryString.length());
+        connection.setDoInput(true);
+        connection.setDoOutput(true);
+        connection.connect();
+        
+        return connection;
     }
     
 }

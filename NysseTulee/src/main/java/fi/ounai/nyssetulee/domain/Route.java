@@ -5,6 +5,7 @@ package fi.ounai.nyssetulee.domain;
  */
 
 public class Route {
+    
     private String shortName, longName;
 
     public Route(String shortName, String longName) {
@@ -19,4 +20,5 @@ public class Route {
     public String getLongName() {
         return longName;
     }
+    
 }

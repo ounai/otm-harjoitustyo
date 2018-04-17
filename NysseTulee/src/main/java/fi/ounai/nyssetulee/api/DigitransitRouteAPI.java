@@ -2,6 +2,7 @@ package fi.ounai.nyssetulee.api;
 
 import com.google.gson.GsonBuilder;
 import fi.ounai.nyssetulee.domain.Route;
+import fi.ounai.nyssetulee.domain.TransitDataJsonDeserializer;
 
 public class DigitransitRouteAPI implements RouteAPI {
     
@@ -22,10 +23,10 @@ public class DigitransitRouteAPI implements RouteAPI {
         
         String json = new GraphQLAPIQuery(apiUrl, query).execute();
         
-        // TODO find the correct way to do this
-        json = json.substring(18, json.length() - 2);
-        
-        Route[] serialized = new GsonBuilder().create().fromJson(json, Route[].class);
+        Route[] serialized = new GsonBuilder()
+                .registerTypeAdapter(Route[].class, new TransitDataJsonDeserializer())
+                .create()
+                .fromJson(json, Route[].class);
         
         return serialized;
     }

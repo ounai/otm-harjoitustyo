@@ -1,7 +1,9 @@
 package fi.ounai.nyssetulee.ui;
 
+import fi.ounai.nyssetulee.api.AlertAPI;
 import fi.ounai.nyssetulee.api.RouteAPI;
 import fi.ounai.nyssetulee.api.StopAPI;
+import fi.ounai.nyssetulee.domain.Alert;
 import fi.ounai.nyssetulee.domain.Route;
 import java.io.PrintStream;
 import java.util.Arrays;
@@ -10,16 +12,19 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class TextUI {
+    
     private Scanner scanner;
     private PrintStream out;
     private RouteAPI routeAPI;
     private StopAPI stopAPI;
+    private AlertAPI alertAPI;
     
-    public TextUI(Scanner scanner, PrintStream out, RouteAPI routeAPI, StopAPI stopAPI) {
+    public TextUI(Scanner scanner, PrintStream out, RouteAPI routeAPI, StopAPI stopAPI, AlertAPI alertAPI) {
         this.scanner = scanner;
         this.out = out;
         this.routeAPI = routeAPI;
         this.stopAPI = stopAPI;
+        this.alertAPI = alertAPI;
     }
     
     public void launch() {
@@ -54,7 +59,27 @@ public class TextUI {
     }
     
     private void showAlerts() {
-        
+        try {
+            Alert[] alerts = alertAPI.getAlerts();
+            
+            if (alerts.length == 0) {
+                System.out.println("No alerts.");
+            } else {
+                System.out.println(alerts.length + " alert" + (alerts.length == 1 ? "" : "s"));
+                
+                for (Alert alert : alerts) {
+                    if (alert.getAlertHeaderText() != null) {
+                        System.out.print(alert.getAlertHeaderText() + ": ");
+                    }
+                    
+                    if (alert.getAlertDescriptionText() != null) {
+                        System.out.println(alert.getAlertDescriptionText());
+                    }
+                }
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TextUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     private void stopSearch(String searchTerm) {
@@ -85,7 +110,7 @@ public class TextUI {
         out.println("Available commmands:");
         out.println("\troutesearch <search term> - search for routes");
         //out.println("\tstopsearch <search term> - search for stops");
-        //out.println("\talerts - display ongoing alerts");
+        out.println("\talerts - display transit alerts");
         out.println("\thelp - display this help");
         out.println("\texit - exit from the application");
     }
@@ -98,4 +123,5 @@ public class TextUI {
         String command = scanner.nextLine();
         return command.split(" ");
     }
+    
 }

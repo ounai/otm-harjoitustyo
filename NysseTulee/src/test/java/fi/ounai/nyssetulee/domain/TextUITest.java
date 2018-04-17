@@ -1,5 +1,6 @@
 package fi.ounai.nyssetulee.domain;
 
+import fi.ounai.nyssetulee.api.TestAlertAPI;
 import fi.ounai.nyssetulee.api.TestRouteAPI;
 import fi.ounai.nyssetulee.api.TestStopAPI;
 import fi.ounai.nyssetulee.ui.TextUI;
@@ -23,10 +24,12 @@ public class TextUITest {
         Scanner scanner = new Scanner(new ByteArrayInputStream(input.getBytes()));
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         PrintStream out = new PrintStream(outputStream);
+        
         TestRouteAPI routeAPI = new TestRouteAPI();
         TestStopAPI stopAPI = new TestStopAPI();
+        TestAlertAPI alertAPI = new TestAlertAPI();
         
-        TextUI textUI = new TextUI(scanner, out, routeAPI, stopAPI);
+        TextUI textUI = new TextUI(scanner, out, routeAPI, stopAPI, alertAPI);
         
         textUI.launch();
         

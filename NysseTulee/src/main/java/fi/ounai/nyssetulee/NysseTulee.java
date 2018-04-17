@@ -1,5 +1,7 @@
 package fi.ounai.nyssetulee;
 
+import fi.ounai.nyssetulee.api.AlertAPI;
+import fi.ounai.nyssetulee.api.DigitransitAlertAPI;
 import fi.ounai.nyssetulee.api.DigitransitRouteAPI;
 import fi.ounai.nyssetulee.api.DigitransitStopAPI;
 import fi.ounai.nyssetulee.api.RouteAPI;
@@ -15,12 +17,13 @@ public class NysseTulee {
         
         RouteAPI routeAPI = new DigitransitRouteAPI(API_URL);
         StopAPI stopAPI = new DigitransitStopAPI(API_URL);
+        AlertAPI alertAPI = new DigitransitAlertAPI(API_URL);
         
         // Create and launch a textual UI
         
         Scanner scanner = new Scanner(System.in);
         
-        TextUI ui = new TextUI(scanner, System.out, routeAPI, stopAPI);
+        TextUI ui = new TextUI(scanner, System.out, routeAPI, stopAPI, alertAPI);
         ui.launch();
     }
 }
