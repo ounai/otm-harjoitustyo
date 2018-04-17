@@ -4,10 +4,10 @@ import fi.ounai.nyssetulee.domain.Stop;
 
 public class DigitransitStopAPI implements StopAPI {
     
-    private final String API_URL;
+    private final String apiUrl;
 
-    public DigitransitStopAPI(String API_URL) {
-        this.API_URL = API_URL;
+    public DigitransitStopAPI(String apiUrl) {
+        this.apiUrl = apiUrl;
     }
 
     @Override

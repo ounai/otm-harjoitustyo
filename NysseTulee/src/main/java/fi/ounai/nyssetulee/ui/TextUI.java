@@ -25,41 +25,57 @@ public class TextUI {
     public void launch() {
         showHelp();
         
-        while(true) {
-            out.print("> ");
-            
+        while (true) {
             String[] command = getCommand();
+            String parameters = String.join(" ", Arrays.copyOfRange(command, 1, command.length));
             
-            if(command[0].equals("help")) {
-                showHelp();
-            } else if(command[0].equals("routesearch")) {
-                String[] searchTermArray = Arrays.copyOfRange(command, 1, command.length);
-                String searchTermString = String.join(" ", searchTermArray);
-                
-                try {
-                    Route[] routes = routeAPI.getRoutes(searchTermString);
-                    
-                    if(routes.length == 0) {
-                        System.out.println("No routes found.");
-                    } else {
-                        System.out.println("Found " + routes.length + " route" + (routes.length == 1 ? "" : "s"));
-                        
-                        for(Route route : routes) {
-                            System.out.println(route.getShortName() + " " + route.getLongName());
-                        }
-                    }
-                } catch (Exception ex) {
-                    Logger.getLogger(TextUI.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            } else if(command[0].equals("stopsearch")) {
-                // TODO
-            } else if(command[0].equals("alerts")) {
-                // TODO
-            } else if(command[0].equals("exit")) {
+            if (command[0].equals("exit")) {
                 break;
-            } else {
-                out.println("Unknown command. Type \"help\" for a list of commands. ");
             }
+            
+            handleCommand(command[0], parameters);
+        }
+    }
+    
+    private boolean handleCommand(String command, String parameters) {
+        if (command.equals("help")) {
+            showHelp();
+        } else if (command.equals("routesearch")) {
+            routeSearch(parameters);
+        } else if (command.equals("stopsearch")) {
+            stopSearch(parameters);
+        } else if (command.equals("alerts")) {
+            showAlerts();
+        } else {
+            out.println("Unknown command. Type \"help\" for a list of commands. ");
+        }
+        
+        return true;
+    }
+    
+    private void showAlerts() {
+        
+    }
+    
+    private void stopSearch(String searchTerm) {
+        
+    }
+    
+    private void routeSearch(String searchTerm) {
+        try {
+            Route[] routes = routeAPI.getRoutes(searchTerm);
+
+            if (routes.length == 0) {
+                System.out.println("No routes found.");
+            } else {
+                System.out.println("Found " + routes.length + " route" + (routes.length == 1 ? "" : "s"));
+
+                for (Route route : routes) {
+                    System.out.println(route.getShortName() + " " + route.getLongName());
+                }
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TextUI.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
@@ -76,6 +92,8 @@ public class TextUI {
     
     private String[] getCommand() {
         // Read a command from scanner
+        
+        out.print("> ");
         
         String command = scanner.nextLine();
         return command.split(" ");

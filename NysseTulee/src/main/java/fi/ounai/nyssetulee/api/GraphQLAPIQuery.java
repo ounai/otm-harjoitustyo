@@ -11,17 +11,16 @@ import java.nio.charset.StandardCharsets;
 
 public class GraphQLAPIQuery {
     
-    private String API_URL;
+    private String apiUrl;
     private String queryString;
 
-    public GraphQLAPIQuery(String API_URL, String queryString) {
-        this.API_URL = API_URL;
+    public GraphQLAPIQuery(String apiUrl, String queryString) {
+        this.apiUrl = apiUrl;
         this.queryString = queryString;
     }
     
-    public String execute() throws Exception {
-        URL url = new URL(API_URL);
-        
+    public HttpURLConnection createConnection() throws Exception {
+        URL url = new URL(apiUrl);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("POST");
         connection.addRequestProperty("Content-Type", "application/graphql");
@@ -29,6 +28,12 @@ public class GraphQLAPIQuery {
         connection.setDoInput(true);
         connection.setDoOutput(true);
         connection.connect();
+        
+        return connection;
+    }
+    
+    public String execute() throws Exception {
+        HttpURLConnection connection = createConnection();
         
         try (OutputStream outputStream = connection.getOutputStream()) {
             outputStream.write(queryString.getBytes(StandardCharsets.UTF_8));
@@ -40,7 +45,7 @@ public class GraphQLAPIQuery {
                 StringBuilder response = new StringBuilder();
                 String responseLine;
                 
-                while((responseLine = bufferedReader.readLine()) != null) {
+                while ((responseLine = bufferedReader.readLine()) != null) {
                     response.append(responseLine);
                 }
                 

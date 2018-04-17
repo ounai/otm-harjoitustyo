@@ -5,10 +5,10 @@ import fi.ounai.nyssetulee.domain.Route;
 
 public class DigitransitRouteAPI implements RouteAPI {
     
-    private final String API_URL;
+    private final String apiUrl;
 
-    public DigitransitRouteAPI(String API_URL) {
-        this.API_URL = API_URL;
+    public DigitransitRouteAPI(String apiUrl) {
+        this.apiUrl = apiUrl;
     }
 
     @Override
@@ -20,10 +20,10 @@ public class DigitransitRouteAPI implements RouteAPI {
                     + "}\n"
                 + "}";
         
-        String json = new GraphQLAPIQuery(API_URL, query).execute();
+        String json = new GraphQLAPIQuery(apiUrl, query).execute();
         
         // TODO find the correct way to do this
-        json = json.substring(18, json.length()-2);
+        json = json.substring(18, json.length() - 2);
         
         Route[] serialized = new GsonBuilder().create().fromJson(json, Route[].class);
         
