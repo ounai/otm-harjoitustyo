@@ -30,5 +30,16 @@ public class Stop {
     public String getCode() {
         return code;
     }
+
+    @Override
+    public String toString() {
+        String str = getCode() + " " + getName();
+        
+        if (getDesc() != null && !getDesc().equals(getName())) {
+            str += " (" + getDesc() + ")";
+        }
+        
+        return str;
+    }
     
 }

@@ -38,7 +38,7 @@ public class TransitDataJsonDeserializerTest {
     public void alertDeserializationThrowsErrorOnBadJSON() {
         String json = "{\"data\": { \"alerts\": [ { \"alertHeaderText\": \"alertHeaderText test\", \"alertDescriptionText\": \"alertDescriptionText test\" } ], \"error\": \"bad data\" }}";
         
-        Alert[] deserialized = new GsonBuilder()
+        new GsonBuilder()
                 .registerTypeAdapter(Alert[].class, new TransitDataJsonDeserializer())
                 .create()
                 .fromJson(json, Alert[].class);

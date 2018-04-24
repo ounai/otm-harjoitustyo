@@ -20,5 +20,10 @@ public class Route {
     public String getLongName() {
         return longName;
     }
+
+    @Override
+    public String toString() {
+        return getShortName() + " " + getLongName();
+    }
     
 }

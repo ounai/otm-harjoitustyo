@@ -64,12 +64,12 @@ public class TextUI {
             Alert[] alerts = alertAPI.getAlerts();
             
             if (alerts.length == 0) {
-                System.out.println("No alerts.");
+                out.println("No alerts.");
             } else {
-                System.out.println(alerts.length + " alert" + (alerts.length == 1 ? "" : "s"));
+                out.println(alerts.length + " alert" + (alerts.length == 1 ? "" : "s"));
                 
                 for (Alert alert : alerts) {
-                    System.out.println(alert.toString());
+                    out.println(alert.toString());
                 }
             }
         } catch (Exception ex) {
@@ -82,18 +82,12 @@ public class TextUI {
             Stop[] stops = stopAPI.getStops(searchTerm);
             
             if (stops.length == 0) {
-                System.out.println("No stops found.");
+                out.println("No stops found.");
             } else {
-                System.out.println("Found " + stops.length + " stop" + (stops.length == 1 ? "" : "s"));
+                out.println("Found " + stops.length + " stop" + (stops.length == 1 ? "" : "s"));
                 
                 for (Stop stop : stops) {
-                    System.out.print(stop.getCode() + " " + stop.getName());
-                    
-                    if (stop.getDesc() != null && !stop.getDesc().equals(stop.getName())) {
-                        System.out.print(" (" + stop.getDesc() + ")");
-                    }
-                    
-                    System.out.println();
+                    out.println(stop.toString());
                 }
             }
         } catch (Exception ex) {
@@ -106,12 +100,12 @@ public class TextUI {
             Route[] routes = routeAPI.getRoutes(searchTerm);
 
             if (routes.length == 0) {
-                System.out.println("No routes found.");
+                out.println("No routes found.");
             } else {
-                System.out.println("Found " + routes.length + " route" + (routes.length == 1 ? "" : "s"));
+                out.println("Found " + routes.length + " route" + (routes.length == 1 ? "" : "s"));
 
                 for (Route route : routes) {
-                    System.out.println(route.getShortName() + " " + route.getLongName());
+                    out.println(route.toString());
                 }
             }
         } catch (Exception ex) {
