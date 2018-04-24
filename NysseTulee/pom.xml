@@ -65,12 +65,24 @@
                 <configuration>
                   <configLocation>checkstyle.xml</configLocation>
                 </configuration>
-              </plugin>
-              <plugin>
+            </plugin>
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jxr-plugin</artifactId>
                 <version>2.5</version>
-              </plugin>
+            </plugin>
+              
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <mainClass>fi.ounai.nyssetulee.NysseTulee</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 </project>

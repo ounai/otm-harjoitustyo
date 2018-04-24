@@ -17,4 +17,9 @@ public class RouteTest {
         assertEquals("longName test", route.getLongName());
     }
     
+    @Test
+    public void toStringReturnsCorrectString() {
+        assertEquals("shortName test longName test", route.toString());
+    }
+    
 }

@@ -155,15 +155,17 @@ public class TextUI {
     private void handleCommandAfterStopSearch(Stop[] stops) {
         out.println("Choose stop by index or type \"back\" to go back.");
         
-        String[] command = getCommand();
-        
         while (true) {
-            if (!command[0].equals("back")) {
+            String[] command = getCommand();
+            
+            if (command[0].equals("back")) {
+                break;
+            } else {
                 try {
                     int index = Integer.parseInt(command[0]);
 
                     if (index < 0 || index >= stops.length) {
-                        out.println("Enter a number between 0 and " + stops.length + " or \"back\" to go back.");
+                        out.println("Enter a number between 0 and " + (stops.length - 1) + " or \"back\" to go back.");
                     } else {
                         showStopInformation(stops[index]);
                         
