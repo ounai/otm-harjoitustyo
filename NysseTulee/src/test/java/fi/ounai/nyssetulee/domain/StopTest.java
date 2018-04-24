@@ -8,7 +8,7 @@ public class StopTest {
     private Stop stop;
     
     public StopTest() {
-        stop = new Stop("code test", "name test", "desc test", "url test");
+        stop = new Stop("code test", "name test", "desc test", "url test", "gtfsId test");
     }
     
     @Test
@@ -17,6 +17,7 @@ public class StopTest {
         assertEquals(stop.getName(), "name test");
         assertEquals(stop.getDesc(), "desc test");
         assertEquals(stop.getUrl(), "url test");
+        assertEquals(stop.getGtfsId(), "gtfsId test");
     }
 
 }

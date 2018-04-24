@@ -6,13 +6,15 @@ package fi.ounai.nyssetulee.domain;
 
 public class Stop {
     
-    private String code, name, desc, url;
+    private String code, name, desc, url, gtfsId;
+    private Stoptime[] stoptimesWithoutPatterns;
 
-    public Stop(String code, String name, String desc, String url) {
+    public Stop(String code, String name, String desc, String url, String gtfsId) {
         this.code = code;
         this.name = name;
         this.desc = desc;
         this.url = url;
+        this.gtfsId = gtfsId;
     }
 
     public String getName() {
@@ -29,6 +31,14 @@ public class Stop {
 
     public String getCode() {
         return code;
+    }
+
+    public String getGtfsId() {
+        return gtfsId;
+    }
+
+    public Stoptime[] getStoptimes() {
+        return stoptimesWithoutPatterns;
     }
 
     @Override

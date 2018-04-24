@@ -6,6 +6,7 @@ import fi.ounai.nyssetulee.api.StopAPI;
 import fi.ounai.nyssetulee.domain.Alert;
 import fi.ounai.nyssetulee.domain.Route;
 import fi.ounai.nyssetulee.domain.Stop;
+import fi.ounai.nyssetulee.domain.Stoptime;
 import java.io.PrintStream;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -53,7 +54,7 @@ public class TextUI {
         } else if (command.equals("alerts")) {
             showAlerts();
         } else {
-            out.println("Unknown command. Type \"help\" for a list of commands. ");
+            showUnknownCommand();
         }
         
         return true;
@@ -86,9 +87,11 @@ public class TextUI {
             } else {
                 out.println("Found " + stops.length + " stop" + (stops.length == 1 ? "" : "s"));
                 
-                for (Stop stop : stops) {
-                    out.println(stop.toString());
+                for (int i = 0; i < stops.length; i++) {
+                    out.println("[" + i + "] " + stops[i].toString());
                 }
+                
+                handleCommandAfterStopSearch(stops);
             }
         } catch (Exception ex) {
             Logger.getLogger(TextUI.class.getName()).log(Level.SEVERE, null, ex);
@@ -122,6 +125,56 @@ public class TextUI {
         out.println("\talerts - display transit alerts");
         out.println("\thelp - display this help");
         out.println("\texit - exit from the application");
+    }
+    
+    private void showUnknownCommand() {
+        out.println("Unknown command. Type \"help\" for a list of commands. ");
+    }
+    
+    private void showStopInformation(Stop stop) {
+        try {
+            out.println("Stop " + stop.getName());
+            
+            
+            Stoptime[] stoptimes = stopAPI.getStoptimes(stop.getGtfsId());
+            
+            if(stoptimes.length == 0) {
+                out.println("No departures.");
+            } else {
+                out.println("Next departures:");
+                
+                for (Stoptime stoptime : stoptimes) {
+                    out.println(stoptime.toString());
+                }
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TextUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    private void handleCommandAfterStopSearch(Stop[] stops) {
+        out.println("Choose stop by index or type \"back\" to go back.");
+        
+        String[] command = getCommand();
+        
+        while (true) {
+            if (!command[0].equals("back")) {
+                try {
+                    int index = Integer.parseInt(command[0]);
+
+                    if (index < 0 || index >= stops.length) {
+                        out.println("Enter a number between 0 and " + stops.length + " or \"back\" to go back.");
+                    } else {
+                        showStopInformation(stops[index]);
+                        
+                        break;
+                    }
+                } catch(NumberFormatException e) {
+                    showUnknownCommand();
+                    break;
+                }
+            }
+        }
     }
     
     private String[] getCommand() {
