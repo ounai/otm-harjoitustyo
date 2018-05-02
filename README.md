@@ -1,4 +1,4 @@
-#Harjoitustyö: NysseTulee
+# Harjoitustyö: NysseTulee
 
 Digitransitin APIa hyödyntävä sovellus, jonka avulla voi nopeasti hakea tietoa pysäkeistä, lähdöistä ja linjoista.
 
