@@ -223,7 +223,7 @@ public class TextUI {
             } else {
                 profileStopDao.addStopToProfile(stop, new Profile(profileName));
             }
-        } else if (!command.equals("back")) {
+        } else if (!command[0].equals("back")) {
             handleCommandAfterStopInformation(stop);
         }
     }
