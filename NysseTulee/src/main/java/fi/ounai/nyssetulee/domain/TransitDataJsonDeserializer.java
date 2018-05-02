@@ -9,11 +9,11 @@ import com.google.gson.JsonParseException;
 import java.lang.reflect.Type;
 
 /**
- * Deserializes data returned from Digitransit API
+ * Deserializes data returned from a transit API.
  */
 
 public class TransitDataJsonDeserializer<T> implements JsonDeserializer<T> {
-
+    
     @Override
     public T deserialize(JsonElement je, Type type, JsonDeserializationContext jdc) throws JsonParseException {
         JsonElement data = je.getAsJsonObject().get("data");

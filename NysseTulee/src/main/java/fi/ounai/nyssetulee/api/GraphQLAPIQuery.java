@@ -1,7 +1,5 @@
 package fi.ounai.nyssetulee.api;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonElement;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -9,6 +7,10 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+
+/**
+ * A query to a GraphQL API.
+ */
 
 public class GraphQLAPIQuery {
     
@@ -20,6 +22,12 @@ public class GraphQLAPIQuery {
         this.queryString = queryString;
     }
     
+    /**
+     * Execute a GraphQL API call.
+     * 
+     * @return the response of the call as a string.
+     * @throws Exception 
+     */
     public String execute() throws Exception {
         HttpURLConnection connection = createConnection();
         

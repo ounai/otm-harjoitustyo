@@ -1,5 +1,9 @@
 package fi.ounai.nyssetulee.domain;
 
+/**
+ * Represents a transit trip, an instance of a route that is physically run by a vehicle.
+ */
+
 public class Trip {
     
     private String gtfsId, tripHeadsign, directionId;

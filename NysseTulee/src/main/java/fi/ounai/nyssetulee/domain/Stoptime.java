@@ -4,7 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 /**
- * Represents the time a transit vehicle stops at a stop
+ * Represents the time a transit vehicle stops at a stop.
  */
 
 public class Stoptime {
@@ -20,6 +20,11 @@ public class Stoptime {
         return (realtime ? "[live] " : "") + trip.toString() + " @ " + dateFormat.format(getDate().getTime());
     }
     
+    /**
+     * Convert the stoptime's midnight-based time into a Calendar object.
+     * 
+     * @return A Calendar object, set on the time of the stoptime
+     */
     public Calendar getDate() {
         Calendar startOfDay = Calendar.getInstance(),
                 result = Calendar.getInstance();

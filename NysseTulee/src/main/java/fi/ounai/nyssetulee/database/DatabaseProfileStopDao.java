@@ -44,7 +44,7 @@ public class DatabaseProfileStopDao implements ProfileStopDao {
         stopDao.create(stop);
         profileDao.create(profile);
         
-        if(!exists(stop, profile)) {
+        if (!exists(stop, profile)) {
             database.executeUpdate("INSERT INTO ProfileStop (stop_gtfsid, profile_name) VALUES (?, ?)", stop.getGtfsId(), profile.getName());
         }
     }

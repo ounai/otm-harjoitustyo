@@ -43,17 +43,7 @@ public class NysseTulee {
                     + "FOREIGN KEY (profile_name) REFERENCES Profile(name)"
                     + ")";
     
-    public static void main(String[] args) {
-        // Initialize database
-        
-        File databaseDirectory = new File("db");
-        if (!databaseDirectory.exists()) databaseDirectory.mkdir();
-        
-        File databaseFile = new File("db", "nyssetulee.db");
-        Database database = new Database("jdbc:sqlite:" + databaseFile.getAbsolutePath());
-        
-        // Create database tables if they aren't already present
-        
+    private static void createDatabaseTables(Database database) {
         try {
             database.executeUpdate(createTableStopQuery);
             database.executeUpdate(createTableProfileQuery);
@@ -61,6 +51,22 @@ public class NysseTulee {
         } catch (SQLException ex) {
             Logger.getLogger(NysseTulee.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+    public static void main(String[] args) {
+        // Initialize database
+        
+        File databaseDirectory = new File("db");
+        if (!databaseDirectory.exists()) {
+            databaseDirectory.mkdir();
+        }
+        
+        File databaseFile = new File("db", "nyssetulee.db");
+        Database database = new Database("jdbc:sqlite:" + databaseFile.getAbsolutePath());
+        
+        // Create database tables if they aren't already present
+        
+        createDatabaseTables(database);
         
         // Create DAOs
         

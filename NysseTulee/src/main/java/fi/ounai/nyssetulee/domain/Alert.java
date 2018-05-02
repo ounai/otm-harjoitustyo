@@ -1,7 +1,7 @@
 package fi.ounai.nyssetulee.domain;
 
 /**
- * Represents an alert affecting transit
+ * Represents an alert affecting transit.
  */
 
 public class Alert {

@@ -8,6 +8,34 @@ import fi.ounai.nyssetulee.domain.TransitDataJsonDeserializer;
 public class DigitransitStopAPI implements StopAPI {
     
     private String apiUrl;
+    
+    private String tripQuery = "trip {\n"
+                                + "gtfsId\n"
+                                + "tripHeadsign\n"
+                                + "directionId\n"
+                                + "route {\n"
+                                    + "shortName\n"
+                                    + "longName\n"
+                                + "}"
+                            + "}\n";
+    
+    private String getStopTimesQuery(String gtfsId) {
+        return "{\n"
+                    + "stop(id: \"" + gtfsId + "\") {\n"
+                        + "stoptimesWithoutPatterns {\n"
+                            + "scheduledArrival\n"
+                            + "scheduledDeparture\n"
+                            + "realtimeArrival\n"
+                            + "realtimeDeparture\n"
+                            + "arrivalDelay\n"
+                            + "departureDelay\n"
+                            + "timepoint\n"
+                            + "realtime\n"
+                            + tripQuery
+                        + "}\n"
+                    + "}\n"
+                + "}";
+    }
 
     public DigitransitStopAPI(String apiUrl) {
         this.apiUrl = apiUrl;
@@ -37,30 +65,7 @@ public class DigitransitStopAPI implements StopAPI {
 
     @Override
     public Stoptime[] getStoptimes(String stopGtfsId) throws Exception {
-        String query = "{\n"
-                    + "stop(id: \"" + stopGtfsId + "\") {\n"
-                        + "stoptimesWithoutPatterns {\n"
-                            + "scheduledArrival\n"
-                            + "scheduledDeparture\n"
-                            + "realtimeArrival\n"
-                            + "realtimeDeparture\n"
-                            + "arrivalDelay\n"
-                            + "departureDelay\n"
-                            + "timepoint\n"
-                            + "realtime\n"
-                            + "trip {\n"
-                                + "gtfsId\n"
-                                + "tripHeadsign\n"
-                                + "directionId\n"
-                                + "route {\n"
-                                    + "shortName\n"
-                                    + "longName\n"
-                                + "}"
-                            + "}\n"
-                        + "}\n"
-                    + "}\n"
-                + "}";
-        
+        String query = getStopTimesQuery(stopGtfsId);
         String json = new GraphQLAPIQuery(apiUrl, query).execute();
         
         Stop deserialized = new GsonBuilder()

@@ -1,7 +1,7 @@
 package fi.ounai.nyssetulee.domain;
 
 /**
- * Represents a single transit route
+ * Represents a single transit route.
  */
 
 public class Route {

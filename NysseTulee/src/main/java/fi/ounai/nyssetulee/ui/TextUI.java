@@ -4,21 +4,22 @@ import fi.ounai.nyssetulee.api.AlertAPI;
 import fi.ounai.nyssetulee.api.RouteAPI;
 import fi.ounai.nyssetulee.api.StopAPI;
 import fi.ounai.nyssetulee.database.Database;
-import fi.ounai.nyssetulee.database.ProfileDao;
 import fi.ounai.nyssetulee.database.ProfileStopDao;
-import fi.ounai.nyssetulee.database.StopDao;
 import fi.ounai.nyssetulee.domain.Alert;
 import fi.ounai.nyssetulee.domain.Profile;
 import fi.ounai.nyssetulee.domain.Route;
 import fi.ounai.nyssetulee.domain.Stop;
 import fi.ounai.nyssetulee.domain.Stoptime;
 import java.io.PrintStream;
-import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+/**
+ * A textual UI for the application.
+ */
 
 public class TextUI {
     
@@ -47,6 +48,9 @@ public class TextUI {
         this.profileStopDao = profileStopDao;
     }
     
+    /**
+     * Launches the UI, shows a help message on its usage, then starts listening for commands.
+     */
     public void launch() {
         showHelp();
         
@@ -97,7 +101,6 @@ public class TextUI {
                     out.println(stops.size() + " stop" + (stops.size() == 1 ? "" : "s") + "\n");
                     
                     for (Stop stop : stops) {
-                        //out.println(stop.toString());
                         showStopInformation(stop);
                         out.println();
                     }
@@ -187,7 +190,7 @@ public class TextUI {
             
             Stoptime[] stoptimes = stopAPI.getStoptimes(stop.getGtfsId());
             
-            if(stoptimes.length == 0) {
+            if (stoptimes.length == 0) {
                 out.println("No departures.");
             } else {
                 out.println("Next departures:");
@@ -245,7 +248,7 @@ public class TextUI {
                         
                         break;
                     }
-                } catch(NumberFormatException e) {
+                } catch (NumberFormatException e) {
                     showUnknownCommand();
                     break;
                 }
@@ -254,8 +257,6 @@ public class TextUI {
     }
     
     private String[] getCommand() {
-        // Read a command from scanner
-        
         out.print("> ");
         
         String command = scanner.nextLine();

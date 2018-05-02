@@ -39,5 +39,10 @@ public class StopTest {
     public void getStoptimesReturnsNullWhenNotSet() {
         assertNull(stop.getStoptimes());
     }
+    
+    @Test(expected=UnsupportedAgencyException.class)
+    public void constructorThrowsUnsupportedAgencyExceptionWhenNotInHSLRegion() throws UnsupportedAgencyException {
+        new Stop("NOTHSL:test", null, null, null, null);
+    }
 
 }

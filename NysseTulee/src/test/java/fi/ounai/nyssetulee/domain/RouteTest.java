@@ -29,4 +29,9 @@ public class RouteTest {
         assertEquals("shortName test longName test", route.toString());
     }
     
+    @Test(expected=UnsupportedAgencyException.class)
+    public void constructorThrowsUnsupportedAgencyExceptionWhenNotInHSLRegion() throws UnsupportedAgencyException {
+        new Route("NOTHSL:test", null, null);
+    }
+    
 }
