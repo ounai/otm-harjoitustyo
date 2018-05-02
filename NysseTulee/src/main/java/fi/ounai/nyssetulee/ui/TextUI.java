@@ -3,30 +3,48 @@ package fi.ounai.nyssetulee.ui;
 import fi.ounai.nyssetulee.api.AlertAPI;
 import fi.ounai.nyssetulee.api.RouteAPI;
 import fi.ounai.nyssetulee.api.StopAPI;
+import fi.ounai.nyssetulee.database.Database;
+import fi.ounai.nyssetulee.database.ProfileDao;
+import fi.ounai.nyssetulee.database.ProfileStopDao;
+import fi.ounai.nyssetulee.database.StopDao;
 import fi.ounai.nyssetulee.domain.Alert;
+import fi.ounai.nyssetulee.domain.Profile;
 import fi.ounai.nyssetulee.domain.Route;
 import fi.ounai.nyssetulee.domain.Stop;
 import fi.ounai.nyssetulee.domain.Stoptime;
 import java.io.PrintStream;
+import java.sql.SQLException;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class TextUI {
     
-    private final Scanner scanner;
-    private final PrintStream out;
-    private final RouteAPI routeAPI;
-    private final StopAPI stopAPI;
-    private final AlertAPI alertAPI;
+    private Scanner scanner;
+    private PrintStream out;
+    private RouteAPI routeAPI;
+    private StopAPI stopAPI;
+    private AlertAPI alertAPI;
+    private Database database;
+    private ProfileStopDao profileStopDao;
     
-    public TextUI(Scanner scanner, PrintStream out, RouteAPI routeAPI, StopAPI stopAPI, AlertAPI alertAPI) {
+    public TextUI(Scanner scanner,
+            PrintStream out,
+            RouteAPI routeAPI,
+            StopAPI stopAPI,
+            AlertAPI alertAPI,
+            Database database,
+            ProfileStopDao profileStopDao) {
+        
         this.scanner = scanner;
         this.out = out;
         this.routeAPI = routeAPI;
         this.stopAPI = stopAPI;
         this.alertAPI = alertAPI;
+        this.database = database;
+        this.profileStopDao = profileStopDao;
     }
     
     public void launch() {
@@ -36,11 +54,11 @@ public class TextUI {
             String[] command = getCommand();
             String parameters = String.join(" ", Arrays.copyOfRange(command, 1, command.length));
             
-            if (command[0].equals("exit")) {
+            boolean continueExecution = handleCommand(command[0], parameters);
+            
+            if (!continueExecution) {
                 break;
             }
-            
-            handleCommand(command[0], parameters);
         }
     }
     
@@ -53,11 +71,41 @@ public class TextUI {
             stopSearch(parameters);
         } else if (command.equals("alerts")) {
             showAlerts();
+        } else if (command.equals("profile")) {
+            showProfile(parameters);
+        } else if (command.equals("exit")) {
+            return false;
         } else {
             showUnknownCommand();
         }
         
         return true;
+    }
+    
+    private void showProfile(String profileName) {
+        if (profileName.length() > 20) {
+            out.println("Profile name too long.");
+        } else if (profileName.contains(" ")) {
+            out.println("Invalid profile name.");
+        } else {
+            try {
+                List<Stop> stops = profileStopDao.findStopsByProfile(new Profile(profileName));
+                
+                if (stops.isEmpty()) {
+                    out.println("No stops in profile " + profileName);
+                } else {
+                    out.println(stops.size() + " stop" + (stops.size() == 1 ? "" : "s") + "\n");
+                    
+                    for (Stop stop : stops) {
+                        //out.println(stop.toString());
+                        showStopInformation(stop);
+                        out.println();
+                    }
+                }
+            } catch (Exception ex) {
+                Logger.getLogger(TextUI.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
     
     private void showAlerts() {
@@ -123,18 +171,19 @@ public class TextUI {
         out.println("\troutesearch <search term> - search for routes");
         out.println("\tstopsearch <search term> - search for stops");
         out.println("\talerts - display transit alerts");
+        out.println("\tprofile <profile name> - show list of stops associated with a profile");
         out.println("\thelp - display this help");
         out.println("\texit - exit from the application");
     }
     
     private void showUnknownCommand() {
-        out.println("Unknown command. Type \"help\" for a list of commands. ");
+        // TODO help not always available
+        out.println("Unknown command. Type \"help\" for a list of commands.");
     }
     
     private void showStopInformation(Stop stop) {
         try {
             out.println("Stop " + stop.getName());
-            
             
             Stoptime[] stoptimes = stopAPI.getStoptimes(stop.getGtfsId());
             
@@ -152,7 +201,31 @@ public class TextUI {
         }
     }
     
-    private void handleCommandAfterStopSearch(Stop[] stops) {
+    private void handleCommandAfterStopInformation(Stop stop) throws Exception {
+        out.println("Type \"refresh\" to refresh stop information, "
+                + "\"add <profile name>\" to add this stop to a profile, "
+                + "or \"back\" to go back to the main menu.");
+        
+        String[] command = getCommand();
+        
+        if (command[0].equals("refresh")) {
+            showStopInformation(stop);
+            handleCommandAfterStopInformation(stop);
+        } else if (command[0].equals("add")) {
+            String profileName = command[1];
+            
+            if (profileName.length() > 20) {
+                out.println("Profile name too long. Please try something shorter.");
+                handleCommandAfterStopInformation(stop);
+            } else {
+                profileStopDao.addStopToProfile(stop, new Profile(profileName));
+            }
+        } else if (!command.equals("back")) {
+            handleCommandAfterStopInformation(stop);
+        }
+    }
+    
+    private void handleCommandAfterStopSearch(Stop[] stops) throws Exception {
         out.println("Choose stop by index or type \"back\" to go back.");
         
         while (true) {
@@ -168,6 +241,7 @@ public class TextUI {
                         out.println("Enter a number between 0 and " + (stops.length - 1) + " or \"back\" to go back.");
                     } else {
                         showStopInformation(stops[index]);
+                        handleCommandAfterStopInformation(stops[index]);
                         
                         break;
                     }

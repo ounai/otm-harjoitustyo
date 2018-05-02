@@ -7,7 +7,7 @@ import fi.ounai.nyssetulee.domain.TransitDataJsonDeserializer;
 
 public class DigitransitStopAPI implements StopAPI {
     
-    private final String apiUrl;
+    private String apiUrl;
 
     public DigitransitStopAPI(String apiUrl) {
         this.apiUrl = apiUrl;

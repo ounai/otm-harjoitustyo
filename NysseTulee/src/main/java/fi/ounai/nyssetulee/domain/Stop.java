@@ -9,12 +9,18 @@ public class Stop {
     private String code, name, desc, url, gtfsId;
     private Stoptime[] stoptimesWithoutPatterns;
 
-    public Stop(String code, String name, String desc, String url, String gtfsId) {
+    public Stop(String gtfsId, String code, String name, String desc, String url) throws UnsupportedAgencyException {
+        this.gtfsId = gtfsId;
         this.code = code;
         this.name = name;
         this.desc = desc;
         this.url = url;
-        this.gtfsId = gtfsId;
+        
+        // Stops outside the HSL area are unsupported
+        // If the gtfsId indicates the stop is somewhere else, we throw an exception
+        if (!gtfsId.startsWith("HSL:")) {
+            throw new UnsupportedAgencyException("Stop with gtfsId \"" + gtfsId + "\" is not within the HSL region.");
+        }
     }
 
     public String getName() {

@@ -6,7 +6,7 @@ import fi.ounai.nyssetulee.domain.TransitDataJsonDeserializer;
 
 public class DigitransitRouteAPI implements RouteAPI {
     
-    private final String apiUrl;
+    private String apiUrl;
 
     public DigitransitRouteAPI(String apiUrl) {
         this.apiUrl = apiUrl;

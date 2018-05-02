@@ -6,7 +6,7 @@ import fi.ounai.nyssetulee.domain.TransitDataJsonDeserializer;
 
 public class DigitransitAlertAPI implements AlertAPI {
     
-    private final String apiUrl;
+    private String apiUrl;
 
     public DigitransitAlertAPI(String apiUrl) {
         this.apiUrl = apiUrl;

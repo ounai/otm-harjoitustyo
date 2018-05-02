@@ -1,5 +1,7 @@
 package fi.ounai.nyssetulee.domain;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -8,9 +10,13 @@ public class StopTest {
     private Stop stop, stopNoDesc, stopNullDesc;
     
     public StopTest() {
-        stop = new Stop("code test", "name test", "desc test", "url test", "gtfsId test");
-        stopNoDesc = new Stop("code test", "name test", "name test", "url test", "gtfsId test");
-        stopNullDesc = new Stop("code test", "name test", null, "url test", "gtfsId test");
+        try {
+            stop = new Stop("HSL:test", "code test", "name test", "desc test", "url test");
+            stopNoDesc = new Stop("HSL:test", "code test", "name test", "name test", "url test");
+            stopNullDesc = new Stop("HSL:test", "code test", "name test", null, "url test");
+        } catch (UnsupportedAgencyException ex) {
+            Logger.getLogger(StopTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     @Test
@@ -19,7 +25,7 @@ public class StopTest {
         assertEquals("name test", stop.getName());
         assertEquals("desc test", stop.getDesc());
         assertEquals("url test", stop.getUrl());
-        assertEquals("gtfsId test", stop.getGtfsId());
+        assertEquals("HSL:test", stop.getGtfsId());
     }
     
     @Test
