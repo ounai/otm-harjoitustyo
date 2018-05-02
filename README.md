@@ -7,6 +7,7 @@ Digitransitin APIa hyödyntävä sovellus, jonka avulla voi nopeasti hakea tieto
 * [Määrittelydokumentti](https://github.com/ounai/otm-harjoitustyo/blob/master/NysseTulee/dokumentaatio/VaatimusMaarittely.md)
 * [Tuntikirjanpito](https://github.com/ounai/otm-harjoitustyo/blob/master/NysseTulee/dokumentaatio/TuntiKirjanpito.md)
 * [Arkkitehtuuri](https://github.com/ounai/otm-harjoitustyo/blob/master/NysseTulee/dokumentaatio/Arkkitehtuuri.md)
+* [Käyttöohje](https://github.com/ounai/otm-harjoitustyo/blob/master/NysseTulee/dokumentaatio/KayttoOhje.md)
 
 ## Käyttö komentoriviltä
 
