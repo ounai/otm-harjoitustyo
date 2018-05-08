@@ -8,5 +8,7 @@
 | 24.4. | 3       | Yksittäisten pysäkkien valitseminen ja niiden lähtöjen listaaminen  |
 | 30.4. | 3       | Tietokannan toiminta, dao-luokat |
 | 2.5.  | 5       | Pysäkkien lisääminen profiiliin ja niiden listaaminen |
-| yht   | 20      | |
+| 7.5.  | 3       | Graafisen käyttöliittymän aloittaminen |
+| 8.5.  | 4       | Graafisen käyttöliittymän toteuttaminen samalle tasolle tekstiui:n kanssa |
+| yht   | 23      | |
 

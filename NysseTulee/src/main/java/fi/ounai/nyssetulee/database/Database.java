@@ -3,7 +3,6 @@ package fi.ounai.nyssetulee.database;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
@@ -29,27 +28,6 @@ public class Database {
     }
     
     /**
-     * Execute an SQL query, and return its results.
-     * 
-     * @param statement The query in SQL with parameters that may need sanitation marked with ?'s
-     * @param parameters The parameters that will be sanitized and inserted into the query
-     * @return The results of the query
-     * @throws SQLException 
-     */
-    public ResultSet executeQuery(String statement, String... parameters) throws SQLException {
-        Connection connection = connect();
-        PreparedStatement preparedStatement = connection.prepareStatement(statement);
-        
-        for (int i = 0; i < parameters.length; i++) {
-            preparedStatement.setString(i + 1, parameters[i]);
-        }
-        
-        ResultSet resultSet = preparedStatement.executeQuery();
-        
-        return resultSet;
-    }
-    
-    /**
      * Executes an SQL update.
      * 
      * @param statement The query in SQL with parameters that may need sanitation marked with ?'s
@@ -58,13 +36,13 @@ public class Database {
      */
     public void executeUpdate(String statement, String... parameters) throws SQLException {
         try (Connection connection = connect()) {
-            PreparedStatement preparedStatement = connection.prepareStatement(statement);
-            
-            for (int i = 0; i < parameters.length; i++) {
-                preparedStatement.setString(i + 1, parameters[i]);
+            try (PreparedStatement preparedStatement = connection.prepareStatement(statement)) {
+                for (int i = 0; i < parameters.length; i++) {
+                    preparedStatement.setString(i + 1, parameters[i]);
+                }
+
+                preparedStatement.executeUpdate();
             }
-            
-            preparedStatement.executeUpdate();
         }
     }
     

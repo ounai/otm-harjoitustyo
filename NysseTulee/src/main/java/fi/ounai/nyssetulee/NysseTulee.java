@@ -13,7 +13,9 @@ import fi.ounai.nyssetulee.database.DatabaseStopDao;
 import fi.ounai.nyssetulee.database.ProfileDao;
 import fi.ounai.nyssetulee.database.ProfileStopDao;
 import fi.ounai.nyssetulee.database.StopDao;
+import fi.ounai.nyssetulee.ui.graphical.GraphicalUI;
 import fi.ounai.nyssetulee.ui.TextUI;
+import fi.ounai.nyssetulee.ui.UI;
 import java.io.File;
 import java.sql.SQLException;
 import java.util.Scanner;
@@ -21,6 +23,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class NysseTulee {
+    
+    private static StopAPI stopAPI;
+    private static RouteAPI routeAPI;
+    private static AlertAPI alertAPI;
+    private static ProfileStopDao profileStopDao;
     
     private static String apiUrl = "https://api.digitransit.fi/routing/v1/routers/hsl/index/graphql";
     
@@ -72,20 +79,39 @@ public class NysseTulee {
         
         ProfileDao profileDao = new DatabaseProfileDao(database);
         StopDao stopDao = new DatabaseStopDao(database);
-        ProfileStopDao profileStopDao = new DatabaseProfileStopDao(database, profileDao, stopDao);
+        
+        profileStopDao = new DatabaseProfileStopDao(database, profileDao, stopDao);
         
         // Initialize the APIs
         
-        RouteAPI routeAPI = new DigitransitRouteAPI(apiUrl);
-        StopAPI stopAPI = new DigitransitStopAPI(apiUrl);
-        AlertAPI alertAPI = new DigitransitAlertAPI(apiUrl);
+        routeAPI = new DigitransitRouteAPI(apiUrl);
+        stopAPI = new DigitransitStopAPI(apiUrl);
+        alertAPI = new DigitransitAlertAPI(apiUrl);
         
-        // Create and launch a textual UI
+        // Create and launch UI
         
         Scanner scanner = new Scanner(System.in);
         
-        TextUI ui = new TextUI(scanner, System.out, routeAPI, stopAPI, alertAPI, database, profileStopDao);
+        //UI ui = new TextUI(scanner, System.out);
+        UI ui = new GraphicalUI();
+        
         ui.launch();
+    }
+
+    public static StopAPI getStopAPI() {
+        return stopAPI;
+    }
+
+    public static RouteAPI getRouteAPI() {
+        return routeAPI;
+    }
+
+    public static AlertAPI getAlertAPI() {
+        return alertAPI;
+    }
+
+    public static ProfileStopDao getProfileStopDao() {
+        return profileStopDao;
     }
     
 }

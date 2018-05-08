@@ -2,6 +2,8 @@ package fi.ounai.nyssetulee.database;
 
 import fi.ounai.nyssetulee.domain.Profile;
 import fi.ounai.nyssetulee.domain.Stop;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,13 +24,19 @@ public class DatabaseProfileStopDao implements ProfileStopDao {
     public List<Stop> findStopsByProfile(Profile profile) throws Exception {
         List<Stop> result = new ArrayList();
         
-        ResultSet resultSet = database.executeQuery("SELECT * FROM ProfileStop WHERE profile_name = ?", profile.getName());
-        
-        while (resultSet.next()) {
-            String gtfsId = resultSet.getString("stop_gtfsid");
-            Stop stop = stopDao.findByGtfsId(gtfsId);
-            
-            result.add(stop);
+        try (Connection connection = database.connect()) {
+            try (PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM ProfileStop WHERE profile_name = ?")) {
+                preparedStatement.setString(1, profile.getName());
+                
+                try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                    while (resultSet.next()) {
+                        String gtfsId = resultSet.getString("stop_gtfsid");
+                        Stop stop = stopDao.findByGtfsId(gtfsId);
+
+                        result.add(stop);
+                    }
+                }
+            }
         }
         
         return result;
@@ -51,12 +59,22 @@ public class DatabaseProfileStopDao implements ProfileStopDao {
 
     @Override
     public boolean exists(Stop stop, Profile profile) throws Exception {
-        ResultSet resultSet = database.executeQuery("SELECT * FROM ProfileStop WHERE stop_gtfsid = ? AND profile_name = ?",
-                stop.getGtfsId(), profile.getName());
-        
-        // .next() will return true if a row exists
-        
-        return resultSet.next();
+        try (Connection connection = database.connect()) {
+            try (PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM ProfileStop WHERE stop_gtfsid = ? AND profile_name = ?")) {
+                preparedStatement.setString(1, stop.getGtfsId());
+                preparedStatement.setString(2, profile.getName());
+                
+                try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                    // .next() will return true if a row exists
+                    return resultSet.next();
+                }
+            }
+        }
+    }
+
+    @Override
+    public List<Profile> getProfiles() throws Exception {
+        return profileDao.findAll();
     }
 
 }

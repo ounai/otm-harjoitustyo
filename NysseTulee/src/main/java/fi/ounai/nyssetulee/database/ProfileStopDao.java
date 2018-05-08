@@ -8,6 +8,8 @@ public interface ProfileStopDao {
     
     List<Stop> findStopsByProfile(Profile profile) throws Exception;
     
+    List<Profile> getProfiles() throws Exception;
+    
     List<Profile> findProfilesByStop(Stop stop) throws Exception;
     
     void addStopToProfile(Stop stop, Profile profile) throws Exception;

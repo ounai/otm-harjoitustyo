@@ -6,7 +6,8 @@ package fi.ounai.nyssetulee.domain;
 
 public class Route {
     
-    private String gtfsId, shortName, longName;
+    private String gtfsId, shortName, longName, mode;
+    private Stop[] stops;
 
     public Route(String gtfsId, String shortName, String longName) throws UnsupportedAgencyException {
         this.gtfsId = gtfsId;
@@ -32,9 +33,17 @@ public class Route {
         return gtfsId;
     }
 
+    public Stop[] getStops() {
+        return stops;
+    }
+
+    public String getMode() {
+        return mode;
+    }
+
     @Override
     public String toString() {
-        return getShortName() + " " + getLongName();
+        return shortName + " | " + mode + " | " + longName;
     }
     
 }

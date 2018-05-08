@@ -27,4 +27,6 @@ public interface RouteAPI {
      */
     Route[] getRoutes(String name, String modes) throws Exception;
     
+    Route getRoute(String gtfsId) throws Exception;
+    
 }

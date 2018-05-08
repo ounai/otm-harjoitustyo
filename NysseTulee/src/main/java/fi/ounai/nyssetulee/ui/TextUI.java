@@ -1,9 +1,9 @@
 package fi.ounai.nyssetulee.ui;
 
+import fi.ounai.nyssetulee.NysseTulee;
 import fi.ounai.nyssetulee.api.AlertAPI;
 import fi.ounai.nyssetulee.api.RouteAPI;
 import fi.ounai.nyssetulee.api.StopAPI;
-import fi.ounai.nyssetulee.database.Database;
 import fi.ounai.nyssetulee.database.ProfileStopDao;
 import fi.ounai.nyssetulee.domain.Alert;
 import fi.ounai.nyssetulee.domain.Profile;
@@ -21,36 +21,29 @@ import java.util.logging.Logger;
  * A textual UI for the application.
  */
 
-public class TextUI {
+public class TextUI implements UI {
     
     private Scanner scanner;
     private PrintStream out;
     private RouteAPI routeAPI;
     private StopAPI stopAPI;
     private AlertAPI alertAPI;
-    private Database database;
     private ProfileStopDao profileStopDao;
     
-    public TextUI(Scanner scanner,
-            PrintStream out,
-            RouteAPI routeAPI,
-            StopAPI stopAPI,
-            AlertAPI alertAPI,
-            Database database,
-            ProfileStopDao profileStopDao) {
-        
+    public TextUI(Scanner scanner, PrintStream out) {
         this.scanner = scanner;
         this.out = out;
-        this.routeAPI = routeAPI;
-        this.stopAPI = stopAPI;
-        this.alertAPI = alertAPI;
-        this.database = database;
-        this.profileStopDao = profileStopDao;
+        
+        routeAPI = NysseTulee.getRouteAPI();
+        stopAPI = NysseTulee.getStopAPI();
+        alertAPI = NysseTulee.getAlertAPI();
+        profileStopDao = NysseTulee.getProfileStopDao();
     }
     
     /**
      * Launches the UI, shows a help message on its usage, then starts listening for commands.
      */
+    @Override
     public void launch() {
         showHelp();
         
