@@ -7,34 +7,34 @@ package fi.ounai.nyssetulee.domain;
 public class Alert {
     
     private final String alertHeaderText, alertDescriptionText;
-
+    
     public Alert(String alertHeaderText, String alertDescriptionText) {
         this.alertHeaderText = alertHeaderText;
         this.alertDescriptionText = alertDescriptionText;
     }
-
+    
     public String getAlertHeaderText() {
         return alertHeaderText;
     }
-
+    
     public String getAlertDescriptionText() {
         return alertDescriptionText;
     }
-
+    
     @Override
     public String toString() {
         String result = "";
         
-        if (getAlertHeaderText() != null) {
-            result += getAlertHeaderText();
+        if (alertHeaderText != null) {
+            result += alertHeaderText;
             
-            if (getAlertDescriptionText() != null) {
+            if (alertDescriptionText != null) {
                 result += ": ";
             }
         }
                     
-        if (getAlertDescriptionText() != null) {
-            result += getAlertDescriptionText();
+        if (alertDescriptionText != null) {
+            result += alertDescriptionText;
         }
 
         return result;

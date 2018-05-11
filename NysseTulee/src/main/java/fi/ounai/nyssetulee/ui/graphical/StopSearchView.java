@@ -1,8 +1,6 @@
 package fi.ounai.nyssetulee.ui.graphical;
 
 import fi.ounai.nyssetulee.domain.Stop;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -34,7 +32,6 @@ public class StopSearchView implements View {
             String searchTerm = searchTextField.getText();
             
             if (searchTerm.isEmpty()) {
-                // TODO warn user
                 return;
             }
             
@@ -43,7 +40,7 @@ public class StopSearchView implements View {
                 StopSearchResultsView resultsView = new StopSearchResultsView(graphicalUI, this, stops);
                 graphicalUI.changeView(resultsView, true);
             } catch (Exception ex) {
-                Logger.getLogger(StopSearchView.class.getName()).log(Level.SEVERE, null, ex);
+                new ExceptionWindow(graphicalUI, ex);
             }
         });
         

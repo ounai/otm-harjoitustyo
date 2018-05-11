@@ -29,6 +29,11 @@ public class StopSearchResultsView implements View {
     public void generate() throws Exception {
         VBox view = new VBox();
         
+        if (stops.length == 0) {
+            Label noStopsLabel = new Label("No stops found.");
+            view.getChildren().add(noStopsLabel);
+        }
+        
         for (Stop stop : stops) {
             HBox stopHBox = new HBox();
             

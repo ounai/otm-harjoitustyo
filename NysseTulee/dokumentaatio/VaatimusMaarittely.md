@@ -14,8 +14,7 @@ Sovellus on tarkoitettu vain yhden henkilön tai talouden käyttöön, ja siten 
 
 - Näyttää suosikkipysäkkien reaaliaikaiset aikataulut seuraaville lähdöille
 - Antaa mahdollisuuden rajoittaa pysäkkilistan profiilien avulla
-- Kertoo liikennehäiriöt, erityisesti korostettuna jos sellainen koskee suosikkipysäkiltä lähtevää linjaa
-- Tarjoaa painikkeet joista pääsee hakemaan pysäkkejä tai linjoja
+- Tarjoaa painikkeet joista pääsee hakemaan pysäkkejä, linjoja tai liikennetiedotteita
 
 ### Pysäkkihaku
 
@@ -28,6 +27,9 @@ Sovellus on tarkoitettu vain yhden henkilön tai talouden käyttöön, ja siten 
 - Antaa hakea linjaa tunnuksen perusteella
 - Kertoo jokaisesta tuloksesta tunnuksen ja reitin
 - Yksittäisestä hakutuloksesta pääsee katsomaan tarkempia tietoja linjasta, sekä listaa reitin yksittäisistä pysäkeistä, yksittäisestä pysäkistä taas pääsee samaan näkymään kuin pysäkkihausta
+
+### Liikennetiedotelistaus
+- Näyttää voimassa olevat liikennehäiriöt
 
 ## Jatkokehitys
 

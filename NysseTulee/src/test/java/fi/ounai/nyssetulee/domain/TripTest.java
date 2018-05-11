@@ -11,7 +11,7 @@ public class TripTest {
     
     public TripTest() {
         try {
-            Route route = new Route("HSL:test", "route shortName", "route longName");
+            Route route = new Route("HSL:test", "route shortName", "route longName", "route mode");
             trip = new Trip("gtfsId test", "tripHeadsign test", "0", route);
         } catch (UnsupportedAgencyException ex) {
             Logger.getLogger(TripTest.class.getName()).log(Level.SEVERE, null, ex);

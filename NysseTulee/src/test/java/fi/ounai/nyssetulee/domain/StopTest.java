@@ -30,9 +30,9 @@ public class StopTest {
     
     @Test
     public void toStringReturnsCorrectString() {
-        assertEquals("code test name test (desc test)", stop.toString());
-        assertEquals("code test name test", stopNoDesc.toString());
-        assertEquals("code test name test", stopNullDesc.toString());
+        assertEquals("code test | name test (desc test)", stop.toString());
+        assertEquals("code test | name test", stopNoDesc.toString());
+        assertEquals("code test | name test", stopNullDesc.toString());
     }
     
     @Test

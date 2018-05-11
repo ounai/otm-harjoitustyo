@@ -12,6 +12,12 @@ public class DigitransitAlertAPI implements AlertAPI {
         this.apiUrl = apiUrl;
     }
     
+    /**
+     * Fetch a list of current transit alerts.
+     * 
+     * @return An array of alert objects, representing the alerts.
+     * @throws Exception 
+     */
     @Override
     public Alert[] getAlerts() throws Exception {
         String query = "{\n"

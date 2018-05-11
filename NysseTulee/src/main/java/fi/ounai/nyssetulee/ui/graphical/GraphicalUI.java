@@ -6,8 +6,6 @@ import fi.ounai.nyssetulee.api.RouteAPI;
 import fi.ounai.nyssetulee.api.StopAPI;
 import fi.ounai.nyssetulee.database.ProfileStopDao;
 import fi.ounai.nyssetulee.ui.UI;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -60,7 +58,7 @@ public class GraphicalUI extends Application implements UI {
             
             window.setScene(view.getScene());
         } catch (Exception ex) {
-            Logger.getLogger(GraphicalUI.class.getName()).log(Level.SEVERE, null, ex);
+            new ExceptionWindow(this, ex);
         }
     }
     

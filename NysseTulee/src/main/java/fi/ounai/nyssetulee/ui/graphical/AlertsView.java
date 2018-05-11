@@ -28,7 +28,9 @@ public class AlertsView implements View {
         
         if (alerts.length == 0) {
             view.getChildren().add(new Label("No alerts."));
-        } else for (Alert alert : alerts) {
+        }
+        
+        for (Alert alert : alerts) {
             view.getChildren().add(new Label(alert.toString()));
         }
         

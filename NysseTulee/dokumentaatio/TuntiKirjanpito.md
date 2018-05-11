@@ -10,5 +10,6 @@
 | 2.5.  | 5       | Pysäkkien lisääminen profiiliin ja niiden listaaminen |
 | 7.5.  | 3       | Graafisen käyttöliittymän aloittaminen |
 | 8.5.  | 4       | Graafisen käyttöliittymän toteuttaminen samalle tasolle tekstiui:n kanssa |
-| yht   | 27      | |
+| 10.5. | 3       | Kuumeinen (kirjaimellisesti) dokumentaation viimeistely, virheiden käsittely käyttöliittymässä |
+| yht   | 30      | |
 

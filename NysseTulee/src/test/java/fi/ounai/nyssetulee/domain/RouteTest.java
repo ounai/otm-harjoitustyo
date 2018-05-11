@@ -11,7 +11,7 @@ public class RouteTest {
     
     public RouteTest() {
         try {
-            route = new Route("HSL:test", "shortName test", "longName test");
+            route = new Route("HSL:test", "shortName test", "longName test", "mode test");
         } catch (UnsupportedAgencyException ex) {
             Logger.getLogger(RouteTest.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -26,12 +26,12 @@ public class RouteTest {
     
     @Test
     public void toStringReturnsCorrectString() {
-        assertEquals("shortName test longName test", route.toString());
+        assertEquals("shortName test | mode test | longName test", route.toString());
     }
     
     @Test(expected=UnsupportedAgencyException.class)
     public void constructorThrowsUnsupportedAgencyExceptionWhenNotInHSLRegion() throws UnsupportedAgencyException {
-        new Route("NOTHSL:test", null, null);
+        new Route("NOTHSL:test", null, null, null);
     }
     
 }

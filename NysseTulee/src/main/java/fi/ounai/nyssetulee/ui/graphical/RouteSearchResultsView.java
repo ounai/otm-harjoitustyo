@@ -1,8 +1,6 @@
 package fi.ounai.nyssetulee.ui.graphical;
 
 import fi.ounai.nyssetulee.domain.Route;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -51,6 +49,11 @@ public class RouteSearchResultsView implements View {
     private VBox constructRoutesVBox() {
         VBox routesVBox = new VBox();
         
+        if (routes.length == 0) {
+            Label noRoutesLabel = new Label("No routes found.");
+            routesVBox.getChildren().add(noRoutesLabel);
+        }
+        
         for (Route route : routes) {
             HBox routeHBox = new HBox();
             
@@ -63,7 +66,7 @@ public class RouteSearchResultsView implements View {
                     View routeView = new RouteView(graphicalUI, this, routeWithStops);
                     graphicalUI.changeView(routeView, true);
                 } catch (Exception ex) {
-                    Logger.getLogger(RouteSearchResultsView.class.getName()).log(Level.SEVERE, null, ex);
+                    new ExceptionWindow(graphicalUI, ex);
                 }
             });
             

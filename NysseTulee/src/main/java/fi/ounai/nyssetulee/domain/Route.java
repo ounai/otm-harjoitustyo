@@ -9,10 +9,11 @@ public class Route {
     private String gtfsId, shortName, longName, mode;
     private Stop[] stops;
 
-    public Route(String gtfsId, String shortName, String longName) throws UnsupportedAgencyException {
+    public Route(String gtfsId, String shortName, String longName, String mode) throws UnsupportedAgencyException {
         this.gtfsId = gtfsId;
         this.shortName = shortName;
         this.longName = longName;
+        this.mode = mode;
         
         // Routes outside the HSL area are unsupported
         // If the gtfsId indicates the stop is somewhere else, we throw an exception

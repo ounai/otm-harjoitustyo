@@ -2,6 +2,8 @@ package fi.ounai.nyssetulee.ui.graphical;
 
 import fi.ounai.nyssetulee.domain.Stop;
 import fi.ounai.nyssetulee.domain.Stoptime;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.geometry.Orientation;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -15,11 +17,14 @@ public class StopView implements View {
     private Scene scene;
     private View lastView;
     private Stop stop;
+    private VBox stoptimesVBox;
 
     public StopView(GraphicalUI graphicalUI, View lastView, Stop stop) {
         this.graphicalUI = graphicalUI;
         this.lastView = lastView;
         this.stop = stop;
+        
+        stoptimesVBox = new VBox();
     }
     
     @Override
@@ -38,10 +43,19 @@ public class StopView implements View {
         separator1.setOrientation(Orientation.HORIZONTAL);
         separator2.setOrientation(Orientation.HORIZONTAL);
         
-        VBox stoptimes = constructStoptimesVBox();
+        constructStoptimesVBox();
         
-        Button addFavoriteStopButton = new Button("Add to favorites"),
+        Button refreshButton = new Button("Refresh"),
+                addFavoriteStopButton = new Button("Add to favorites"),
                 backButton = new Button("Back");
+        
+        refreshButton.setOnAction(event -> {
+            try {
+                constructStoptimesVBox();
+            } catch (Exception ex) {
+                new ExceptionWindow(graphicalUI, ex);
+            }
+        });
         
         addFavoriteStopButton.setOnAction(event -> {
             AddFavoriteStopView addView = new AddFavoriteStopView(graphicalUI, this, stop);
@@ -52,13 +66,13 @@ public class StopView implements View {
             graphicalUI.changeView(lastView, false);
         });
         
-        view.getChildren().addAll(stopLabel, separator1, stoptimes, separator2, addFavoriteStopButton, backButton);
+        view.getChildren().addAll(stopLabel, separator1, stoptimesVBox, separator2, refreshButton, addFavoriteStopButton, backButton);
         
         scene = new Scene(view);
     }
     
-    private VBox constructStoptimesVBox() throws Exception {
-        VBox stoptimesVBox = new VBox();
+    private void constructStoptimesVBox() throws Exception {
+        stoptimesVBox.getChildren().clear();
         
         Stoptime[] stoptimes = graphicalUI.getStopAPI().getStoptimes(stop.getGtfsId());
         
@@ -66,8 +80,6 @@ public class StopView implements View {
             Label stoptimeLabel = new Label(stoptime.toString());
             stoptimesVBox.getChildren().add(stoptimeLabel);
         }
-        
-        return stoptimesVBox;
     }
     
 }

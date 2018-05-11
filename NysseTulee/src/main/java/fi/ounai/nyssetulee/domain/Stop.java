@@ -49,14 +49,14 @@ public class Stop {
 
     @Override
     public String toString() {
-        String str = getName();
+        String str = name;
         
         if (getCode() != null) {
-            str = getCode() + " | " + str;
+            str = code + " | " + str;
         }
         
-        if (getDesc() != null && !getDesc().equals(getName())) {
-            str += " (" + getDesc() + ")";
+        if (desc != null && !desc.equals(name)) {
+            str += " (" + desc + ")";
         }
         
         return str;

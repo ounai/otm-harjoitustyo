@@ -7,11 +7,36 @@ import fi.ounai.nyssetulee.domain.TransitDataJsonDeserializer;
 public class DigitransitRouteAPI implements RouteAPI {
     
     private String apiUrl;
-
+    
+    private String getRouteQuery(String gtfsId) {
+        return "{\n"
+                    + "route(id: \"" + gtfsId + "\") {\n"
+                        + "gtfsId\n"
+                        + "shortName\n"
+                        + "longName\n"
+                        + "mode\n"
+                        + "stops {\n"
+                            + "name\n"
+                            + "desc\n"
+                            + "url\n"
+                            + "code\n"
+                            + "gtfsId\n"
+                        + "}\n"
+                    + "}\n"
+                + "}";
+    }
+    
     public DigitransitRouteAPI(String apiUrl) {
         this.apiUrl = apiUrl;
     }
-
+    
+    /**
+     * Fetch a list of transit routes that match a given name.
+     * 
+     * @param name The name (or a part of it) to search for
+     * @return An array of route objects, that match the search
+     * @throws Exception 
+     */
     @Override
     public Route[] getRoutes(String name) throws Exception {
         String query = "{\n"
@@ -32,30 +57,17 @@ public class DigitransitRouteAPI implements RouteAPI {
         
         return deserialized;
     }
-
-    @Override
-    public Route[] getRoutes(String name, String modes) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
+    
+    /**
+     * Fetch a single route based on gtfsId and return it.
+     * 
+     * @param gtfsId The gtfsId of the route
+     * @return a route matching the gtfsId
+     * @throws Exception 
+     */
     @Override
     public Route getRoute(String gtfsId) throws Exception {
-        String query = "{\n"
-                    + "route(id: \"" + gtfsId + "\") {\n"
-                        + "gtfsId\n"
-                        + "shortName\n"
-                        + "longName\n"
-                        + "mode\n"
-                        + "stops {\n"
-                            + "name\n"
-                            + "desc\n"
-                            + "url\n"
-                            + "code\n"
-                            + "gtfsId\n"
-                        + "}\n"
-                    + "}\n"
-                + "}";
-        
+        String query = getRouteQuery(gtfsId);
         String json = new GraphQLAPIQuery(apiUrl, query).execute();
         
         Route deserialized = new GsonBuilder()

@@ -14,11 +14,9 @@ import fi.ounai.nyssetulee.database.ProfileDao;
 import fi.ounai.nyssetulee.database.ProfileStopDao;
 import fi.ounai.nyssetulee.database.StopDao;
 import fi.ounai.nyssetulee.ui.graphical.GraphicalUI;
-import fi.ounai.nyssetulee.ui.TextUI;
 import fi.ounai.nyssetulee.ui.UI;
 import java.io.File;
 import java.sql.SQLException;
-import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -64,6 +62,7 @@ public class NysseTulee {
         // Initialize database
         
         File databaseDirectory = new File("db");
+        
         if (!databaseDirectory.exists()) {
             databaseDirectory.mkdir();
         }
@@ -90,11 +89,7 @@ public class NysseTulee {
         
         // Create and launch UI
         
-        Scanner scanner = new Scanner(System.in);
-        
-        //UI ui = new TextUI(scanner, System.out);
         UI ui = new GraphicalUI();
-        
         ui.launch();
     }
 

@@ -40,7 +40,14 @@ public class DigitransitStopAPI implements StopAPI {
     public DigitransitStopAPI(String apiUrl) {
         this.apiUrl = apiUrl;
     }
-
+    
+    /**
+     * Fetch a list of transit stops that match a given name.
+     * 
+     * @param name The name (or a part of it) to search for
+     * @return An array of stop objects, that match the search.
+     * @throws Exception 
+     */
     @Override
     public Stop[] getStops(String name) throws Exception {
         String query = "{\n"
@@ -62,7 +69,14 @@ public class DigitransitStopAPI implements StopAPI {
         
         return deserialized;
     }
-
+    
+    /**
+     * Fetch a list of the next vehicles leaving from a stop, as expressed by stoptimes.
+     * 
+     * @param gtfsId The unique GTFS id of the stop
+     * @return An array of stoptime objects for the stop
+     * @throws Exception 
+     */
     @Override
     public Stoptime[] getStoptimes(String stopGtfsId) throws Exception {
         String query = getStopTimesQuery(stopGtfsId);

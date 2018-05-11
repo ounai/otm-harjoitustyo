@@ -4,8 +4,6 @@ import fi.ounai.nyssetulee.domain.Profile;
 import fi.ounai.nyssetulee.domain.Stop;
 import fi.ounai.nyssetulee.domain.Stoptime;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.geometry.Orientation;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -38,13 +36,16 @@ public class MainView implements View {
         Separator separator = new Separator();
         separator.setOrientation(Orientation.HORIZONTAL);
         
-        view.getChildren().addAll(constructFavoritesVBox(), separator, constructButtonsVBox());
+        VBox favoritesVBox = constructFavoritesVBox(),
+                buttonsVBox = constructButtonsVBox();
+        
+        view.getChildren().addAll(favoritesVBox, separator, buttonsVBox);
         
         scene = new Scene(view);
     }
     
     private VBox constructFavoritesVBox() throws Exception {
-        VBox favorites = new VBox();
+        VBox favoritesVBox = new VBox();
         
         HBox controlHBox = new HBox();
         Button refreshButton = new Button("Refresh");
@@ -71,9 +72,9 @@ public class MainView implements View {
         nextStoptimes.getChildren().add(new Label("Choose a profile to view its stops."));
         
         controlHBox.getChildren().addAll(profileComboBox, refreshButton);
-        favorites.getChildren().addAll(controlHBox, nextStoptimes);
+        favoritesVBox.getChildren().addAll(controlHBox, nextStoptimes);
         
-        return favorites;
+        return favoritesVBox;
     }
     
     private void updateNextStoptimes() {
@@ -87,7 +88,7 @@ public class MainView implements View {
             nextStoptimes.getChildren().clear();
             nextStoptimes.getChildren().add(constructStoptimesForProfile(profile));
         } catch (Exception ex) {
-            Logger.getLogger(GraphicalUI.class.getName()).log(Level.SEVERE, null, ex);
+            new ExceptionWindow(graphicalUI, ex);
         }
     }
     

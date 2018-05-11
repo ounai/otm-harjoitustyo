@@ -2,8 +2,6 @@ package fi.ounai.nyssetulee.ui.graphical;
 
 import fi.ounai.nyssetulee.domain.Profile;
 import fi.ounai.nyssetulee.domain.Stop;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -42,8 +40,7 @@ public class AddFavoriteStopView implements View {
         addButton.setOnAction(event -> {
             String profileName = profileTextField.getText();
             
-            if (profileName.isEmpty()) {
-                // TODO warn user
+            if (profileName.isEmpty() || profileName.length() > 20) {
                 return;
             }
             
@@ -51,7 +48,7 @@ public class AddFavoriteStopView implements View {
                 graphicalUI.getProfileStopDao().addStopToProfile(stop, new Profile(profileName));
                 graphicalUI.changeView(lastView, false);
             } catch (Exception ex) {
-                Logger.getLogger(AddFavoriteStopView.class.getName()).log(Level.SEVERE, null, ex);
+                new ExceptionWindow(graphicalUI, ex);
             }   
         });
         

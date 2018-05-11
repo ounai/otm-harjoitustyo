@@ -14,9 +14,9 @@ public class TestRouteAPI implements RouteAPI {
 
     private Route[] getTestRoutes(String name) {
         try {
-            Route route1 = new Route("HSL:test1", "1", name + "1");
-            Route route2 = new Route("HSL:test2", "2", name + "2");
-            Route route3 = new Route("HSL:test3", "3", name + "3");
+            Route route1 = new Route("HSL:test1", "1", name + "1", "testMode");
+            Route route2 = new Route("HSL:test2", "2", name + "2", "testMode");
+            Route route3 = new Route("HSL:test3", "3", name + "3", "testMode");
             
             return new Route[] {
                 route1, route2, route3
@@ -34,8 +34,8 @@ public class TestRouteAPI implements RouteAPI {
     }
 
     @Override
-    public Route[] getRoutes(String name, String modes) {
-        return getTestRoutes(name);
+    public Route getRoute(String gtfsId) throws Exception {
+        return new Route(gtfsId, "shortName test", "longName test", "mode test");
     }
     
 }
